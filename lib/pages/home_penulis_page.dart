@@ -71,8 +71,9 @@ class _HomePenulisState extends State<HomePenulis> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 158, 198, 231),
-                  Color.fromARGB(255, 14, 141, 219),
+                  Colors.purple.shade100,
+                  Colors.blue.shade50,
+                  Colors.blue.shade100,
                 ],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,

@@ -81,7 +81,7 @@ class _BacaPageState extends State<BacaPage> {
             height: 10,
           ),
           Container(
-          padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(20),
           decoration: 
           const BoxDecoration(
             border: Border(
@@ -116,7 +116,7 @@ class _BacaPageState extends State<BacaPage> {
                 ],
               ),
               const SizedBox(
-                width: 20,
+                width: 30,
               ),
               const Column(
                 children: [
@@ -134,7 +134,7 @@ class _BacaPageState extends State<BacaPage> {
                 ],
               ),
               const SizedBox(
-                width: 20,
+                width: 30,
               ),
               Column(
                 children: [
