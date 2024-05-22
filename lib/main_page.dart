@@ -1,6 +1,6 @@
 import 'package:e_literasi/pages/arsip_page.dart';
 import 'package:e_literasi/pages/home_page.dart';
-import 'package:e_literasi/pages/profil_page.dart';
+import 'package:e_literasi/pages/edit_profil_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> pages = [
     HomePage(),
     ArsipPage(),
-    ProfilPage()
+    EditProfilePage()
   ];
 
   @override

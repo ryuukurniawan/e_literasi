@@ -1,40 +1,110 @@
-import 'package:e_literasi/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 
-void main() {
+import 'package:e_literasi/pages/login_page.dart'; // Import the LoginPage
+
+void main() async {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent),
+  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'E-Literasi',
-      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
-      home: const MainPage(),
+      debugShowCheckedModeBanner: false,
+      home: const MyHomePage(title: 'Introduction'),
     );
   }
 }
 
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    const PageDecoration pageDecoration = PageDecoration(
+      titleTextStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      bodyTextStyle: TextStyle(fontSize: 19),
+      bodyPadding: EdgeInsets.all(16),
+    );
+
+    return IntroductionScreen(
+      globalBackgroundColor: Colors.white,
+      pages: [
+        PageViewModel(
+          title: 'Menulis',
+          body:
+              'Buat Karya disini !',
+          image: Image.asset(
+            'assets/gambar1.png',
+            width: 350,
+            errorBuilder: (context, error, stackTrace) =>
+                const Icon(Icons.error),
+          ),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: 'Baca Dimana Saja !',
+          body:
+              'Baca dimana saja, kapanpun dengan gadgetmu',
+          image: Image.asset(
+            'assets/gambar2.png',
+            width: 350,
+            errorBuilder: (context, error, stackTrace) =>
+                const Icon(Icons.error),
+          ),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: 'Kembangkan Skill Anda !',
+          body:
+              'Ayo bergabung sekarang bersama Kami ! ',
+          image: Image.asset(
+            'assets/gambar3.png',
+            width: 350,
+            errorBuilder: (context, error, stackTrace) =>
+                const Icon(Icons.error),
+          ),
+          decoration: pageDecoration,
+        ),
+      ],
+      onDone: () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const LoginPage()),
+        );
+      },
+      showSkipButton: true,
+      showNextButton: true,
+      showDoneButton: true,
+      showBackButton: false,
+      back: const Icon(Icons.arrow_back),
+      skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.bold)),
+      next: const Icon(Icons.arrow_forward),
+      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.bold)),
+      dotsDecorator: const DotsDecorator(
+        size: Size(10, 10),
+        color: Colors.grey,
+        activeSize: Size(22, 10),
+        activeShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+        ),
+      ),
+    );
+  }
+}

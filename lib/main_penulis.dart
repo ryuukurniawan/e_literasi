@@ -1,5 +1,6 @@
 import 'package:e_literasi/pages/home_penulis_page.dart';
 import 'package:e_literasi/pages/tulis_page.dart';
+import 'package:e_literasi/pages/edit_profil_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,14 +17,7 @@ class _MainPenulisState extends State<MainPenulis> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePenulis(),
     TulisPage(),
-    const Center(
-      child: Text(
-        'Buat',
-        style: TextStyle(
-          fontSize: 40,
-        ),
-      ),
-    ),
+    EditProfilePage(),
   ];
 
   void _onItemTapped(int index) {
