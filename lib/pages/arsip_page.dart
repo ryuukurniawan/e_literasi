@@ -71,12 +71,13 @@ class _ArsipPageState extends State<ArsipPage> {
           SizedBox(
             height: 210,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 _kontenKaryaArsip('assets/novel 3.png', 'Sesuap  Rasa'),
+                 _kontenKaryaArsip('assets/novel 1.jpg', 'Sesuap  Rasa'),
                  SizedBox(width: 15,),
-                 _kontenKaryaArsip('assets/komik 2.png', 'Jujutsu Kaisen'),
+                 _kontenKaryaArsip('assets/komik 2.jpg', 'Jujutsu Kaisen'),
                  SizedBox(width: 15,),
-                 _kontenKaryaArsip('assets/novel 6.png', 'Garis Takdir'),
+                 _kontenKaryaArsip('assets/novel 6.jpeg', 'Garis Takdir'),
                  SizedBox(width: 15,),
               ],
             ),
@@ -87,12 +88,13 @@ class _ArsipPageState extends State<ArsipPage> {
           SizedBox(
             height: 210,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 _kontenKaryaArsip('assets/novel 5.png', 'Beauty in A Click'),
+                 _kontenKaryaArsip('assets/novel 5.jpeg', 'Beauty in A Click'),
                  SizedBox(width: 15,),
-                 _kontenKaryaArsip('assets/novel 2.png', 'Berbalas Dendam'),
+                 _kontenKaryaArsip('assets/novel 3.jpg', 'Berbalas Dendam'),
                  SizedBox(width: 15,),
-                 _kontenKaryaArsip('assets/novel 4.png', 'Dandadan'),
+                 _kontenKaryaArsip('assets/novel 4.jpg', 'Gadis Kretek'),
                  SizedBox(width: 15,),
               ],
             ),

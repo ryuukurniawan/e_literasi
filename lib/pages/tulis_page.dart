@@ -35,10 +35,10 @@ class _TulisPageState extends State<TulisPage> {
       ),
       body: ListView(
         children: [
-          BookItem(name: 'Dandadan', imagePath: 'assets/komik 4.png'),
-          BookItem(name: 'Seperti Dendam', imagePath: 'assets/novel 2.png'),
-          BookItem(name: 'About Nada', imagePath: 'assets/novel 4.png'),
-          BookItem(name: 'Sesuap Rasa', imagePath: 'assets/novel 3.png'),
+          BookItem(name: 'Dandadan', imagePath: 'assets/komik 4.jpg'),
+          BookItem(name: 'Seperti Dendam', imagePath: 'assets/novel 3.jpg'),
+          BookItem(name: 'Gadis Kretek', imagePath: 'assets/novel 4.jpg'),
+          BookItem(name: 'Sesuap Rasa', imagePath: 'assets/novel 1.jpg'),
         ],
       ),
     );

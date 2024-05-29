@@ -31,7 +31,7 @@ class _PublishPageState extends State<PublishPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Image.asset('assets/novel 3.png'),
+                  child: Image.asset('assets/novel 1.jpg'),
                 ),
                 Text(
                   'Title Book',

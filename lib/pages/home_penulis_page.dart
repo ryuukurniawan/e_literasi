@@ -17,20 +17,20 @@ class _HomePenulisState extends State<HomePenulis> {
     return Scaffold(
       appBar: AppBar(
         leading: const
-        Padding(padding: EdgeInsets.only(top: 5, right:0),
-         child:Icon(
-          Icons.menu_outlined,
-          size: 30,
-        ),
-        ),
-        
-        title: const 
-        Padding(padding: EdgeInsets.only(top: 16),
-         child:Image(
+        Padding(padding: EdgeInsets.only(top: 5,left: 10, right: 0),
+          child:Image(
           alignment: Alignment.centerRight,
-          image: AssetImage('assets/logonavbar.png'),
-          width: 135,
+          image: AssetImage('assets/logo.png'),
           ),
+        ),
+        title: const 
+        Padding(padding: EdgeInsets.only(top: 16,bottom: 10),
+         child:Text(
+          'E-literasi',
+          style: TextStyle(
+            fontWeight: FontWeight.bold
+          ) ,
+         )
         ),
         actions: [
          PopupMenuButton(itemBuilder:(context){
@@ -217,14 +217,14 @@ class _HomePenulisState extends State<HomePenulis> {
                         return DetailPage();
                       }));
                     },
-                    child : _kontenKaryaHome('assets/novel 3.png', 'Sesuap Rasa', '4.8'),
+                    child : _kontenKaryaHome('assets/novel 1.jpg', 'Sesuap Rasa', '4.8'),
                   ),
                  SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/novel 1.png', 'Dilan 1990', '4.6'),
+                 _kontenKaryaHome('assets/novel 2.jpg', 'Dilan 1990', '4.6'),
                  SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/novel 2.png', 'Berbalas Dendam', '4.4'),
+                 _kontenKaryaHome('assets/novel 3.jpg', 'Berbalas Dendam', '4.4'),
                  SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/novel 4.png', 'About Nada', '4.3'),
+                 _kontenKaryaHome('assets/novel 4.jpg', 'Gadis Kretek', '4.3'),
                  SizedBox(width: 10,),
               ],
             ),
@@ -253,7 +253,7 @@ Widget _kontenKaryaHome(String imgPath,String namaKarya,String rating){
                     Text(
                           namaKarya,
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -263,13 +263,13 @@ Widget _kontenKaryaHome(String imgPath,String namaKarya,String rating){
                       const Icon(
                           Icons.star,
                           color: Colors.amber,
-                          size: 10,
+                          size: 12,
                         ),
                         const SizedBox(width: 5),
                         Text(
                           rating,
                           style: const TextStyle(
-                            fontSize: 10,
+                            fontSize: 12,
                           ),
                         ),
                       ],

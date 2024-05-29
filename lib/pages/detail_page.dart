@@ -57,7 +57,7 @@ class _DetailPageState extends State<DetailPage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   image: const DecorationImage(
-                    image: AssetImage('assets/novel 3.png'),
+                    image: AssetImage('assets/novel 1.jpg'),
                     fit: BoxFit.cover,
                   )
                 ),
