@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
           const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children : [
-                  Padding( padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20,),
+                  Padding( padding: EdgeInsets.symmetric(horizontal: 30,vertical: 10,),
                         child: Text(
                           "Kategori",
                           style: TextStyle(
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(10),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/aksi_kategori.png'),
+                      image: AssetImage('assets/aksi.png'),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(10),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/romantis_kategori.png'),
+                      image: AssetImage('assets/romantis.png'),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(7),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/komedi .png'),
+                      image: AssetImage('assets/komedi.png'),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(10),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/horor_kategori.png'),
+                      image: AssetImage('assets/horor.png'),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -253,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(12),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/fantasi_kategori.png'),
+                      image: AssetImage('assets/fantasi.png'),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -274,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(10),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/drama_kategori.png'),
+                      image: AssetImage('assets/drama.png'),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -346,6 +346,84 @@ class _HomePageState extends State<HomePage> {
             children : [
                   Padding( padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10,),
                         child: Text(
+                          "Yang lagi hits !",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                  ),
+            ],
+          ),
+          SizedBox(
+            height: 240,
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 22),
+              scrollDirection: Axis.horizontal,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return DetailPage();
+                      }));
+                    },
+                    child : _kontenKaryaKhusus('assets/komik 5.jpg', 'Kindergarten WARS', """Welcome to Kindergarten Noir."""),
+                  ),
+                 SizedBox(width: 15,),
+                 _kontenKaryaKhusus('assets/komik 6.jpg', 'Dogsred', 'The stage is the proud land of the north-Hokkaido.'),
+                 SizedBox(width: 15,),
+                 _kontenKaryaKhusus('assets/komik 7.jpg', 'Okuni University Art Department Film Program', 'Having won a film award in high school.'),
+                 SizedBox(width: 15,),
+                  
+              ],
+            ),
+          ),
+          const Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children : [
+                  Padding( padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10,),
+                        child: Text(
+                          "List Terpopuler !",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                  ),
+            ],
+          ),
+          SizedBox(
+            height: 500,
+            child: Padding(padding: EdgeInsets.symmetric(horizontal: 15),
+              child :Column(
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return DetailPage();
+                        }));
+                      },
+                      child : _kontenKaryaPopuler('assets/top 1.png','assets/komik 8.jpg', 'Naruto', """The adventure begins now!"""),
+                    ),
+                  SizedBox(height: 10,),
+                  _kontenKaryaPopuler('assets/top 2.png','assets/komik 10.jpg', 'Bleach', 'Ichigo Kurosaki has able to see ghosts.'),
+                  SizedBox(height: 10,),
+                  _kontenKaryaPopuler('assets/top 3.png','assets/komik 11.jpg', 'Dragon Ball', 'Goku the adventure of a lifetime.'),
+                  SizedBox(height: 10,),
+                  _kontenKaryaPopuler('assets/top 4.png','assets/komik 12.jpg', 'Haikyu!!', '"the King of the Court," Shoyo Hinata.'),
+                  SizedBox(height: 10,),
+                  _kontenKaryaPopuler('assets/top 5.png','assets/komik 9.jpg', 'Kagurabachi', '6 Katana Sihir.'),
+                  SizedBox(height: 10,),
+                    
+                ],
+              ),
+            ),
+          ),
+          const Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children : [
+                  Padding( padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10,),
+                        child: Text(
                           "Rekomendasi cuma untuk kamu !",
                           style: TextStyle(
                             fontSize: 20,
@@ -397,7 +475,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(
-            height: 15,
+            height: 10,
           ),
           const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -488,7 +566,89 @@ Widget _kontenKaryaHome(String imgPath,String namaKarya,String rating){
                 ); 
 }
 
+Widget _kontenKaryaKhusus(String imgPath,String namaKarya,String deskripsiKarya){
+  return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 180,
+              width: 360,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                image: DecorationImage(
+                  image: AssetImage(imgPath),
+                  fit: BoxFit.cover,
+                )
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              namaKarya,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              deskripsiKarya,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w300,
+              ),
+            ),    
+          ],
+        ); 
+}
+
+Widget _kontenKaryaPopuler(String imgRank,String imgPath,String namaKarya,String deskripsiKarya){
+  return Row(
+          children: [
+            Container(
+              height: 35,
+              width: 35,
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imgRank),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            Container(
+              height: 90,
+              width: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                image: DecorationImage(
+                  image: AssetImage(imgPath),
+                  fit: BoxFit.cover,
+                )
+              ),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  namaKarya,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  deskripsiKarya,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),    
+              ],
+
+            ),
+          ],
+        ); 
+}
 
 
-   
   
