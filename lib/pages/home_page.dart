@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:e_literasi/main_page.dart';
 import 'package:e_literasi/main_penulis.dart';
-import 'package:e_literasi/pages/detail_page.dart';
-//import 'package:e_literasi/pages/home_penulis_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 
 
 class HomePage extends StatefulWidget {
@@ -14,7 +16,89 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
+  List _listkaryahits=[];
+  List _listkaryapopuler=[];
+  List _listkaryakomik=[];
+  List _listkaryanovel=[];
+  List _rankingimage=[
+    'assets/top 1.png',
+    'assets/top 2.png',
+    'assets/top 3.png',
+    'assets/top 4.png',
+    'assets/top 5.png'
+  ];
+
+  Future _karyahits() async{
+    try {
+      final respon =
+        await http.get(Uri.parse('http://192.168.1.5/app_eliterasi/datakaryahits.php'));
+      if (respon.statusCode==200){
+        final data = jsonDecode(respon.body);
+        setState(() {
+          _listkaryahits = data;
+    
+        });
+      }
+    } catch (e) {
+      print (e);
+    } 
+  }
+
+  Future _karyapopuler() async{
+    try {
+      final respon2 =
+        await http.get(Uri.parse('http://192.168.1.5/app_eliterasi/datakaryapopuler.php'));
+      if (respon2.statusCode==200){
+        final data2 = jsonDecode(respon2.body);
+        setState(() {
+          _listkaryapopuler = data2;
+    
+        });
+      }
+    } catch (e) {
+      print (e);
+    } 
+  }
+
+  Future _karyakomik() async{
+    try {
+      final respon3 =
+        await http.get(Uri.parse('http://192.168.1.5/app_eliterasi/datakaryakomik.php'));
+      if (respon3.statusCode==200){
+        final data3 = jsonDecode(respon3.body);
+        setState(() {
+          _listkaryakomik = data3;
+    
+        });
+      }
+    } catch (e) {
+      print (e);
+    } 
+  }
+
+  Future _karyanovel() async{
+    try {
+      final respon4 =
+        await http.get(Uri.parse('http://192.168.1.5/app_eliterasi/datakaryanovel.php'));
+      if (respon4.statusCode==200){
+        final data4 = jsonDecode(respon4.body);
+        setState(() {
+          _listkaryanovel = data4;
+    
+        });
+      }
+    } catch (e) {
+      print (e);
+    } 
+  }
+
+ void initState(){
+    _karyahits();
+    _karyakomik();
+    _karyanovel();
+    _karyapopuler();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -357,26 +441,50 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(
             height: 240,
-            child: ListView(
+            child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 22),
+              itemCount: _listkaryahits.length,
               scrollDirection: Axis.horizontal,
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return DetailPage();
-                      }));
-                    },
-                    child : _kontenKaryaKhusus('assets/komik 5.jpg', 'Kindergarten WARS', """Welcome to Kindergarten Noir."""),
-                  ),
-                 SizedBox(width: 15,),
-                 _kontenKaryaKhusus('assets/komik 6.jpg', 'Dogsred', 'The stage is the proud land of the north-Hokkaido.'),
-                 SizedBox(width: 15,),
-                 _kontenKaryaKhusus('assets/komik 7.jpg', 'Okuni University Art Department Film Program', 'Having won a film award in high school.'),
-                 SizedBox(width: 15,),
-                  
-              ],
-            ),
+              itemBuilder:((context, index){
+                return Row(
+                  children :[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 360,
+                          padding: const EdgeInsets.only(right: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                              image: NetworkImage("http://192.168.1.5/app_eliterasi/uploads/${_listkaryahits[index]['Display']}"),
+                              fit: BoxFit.cover,
+                            )
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          _listkaryahits[index]['Judul'],
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          _listkaryahits[index]['Sinopsis'],
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),    
+                      ],
+                    ),
+                    SizedBox(width: 15,)
+                  ]
+                ); 
+              }),
+              )
           ),
           const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -394,31 +502,70 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(
             height: 500,
-            child: Padding(padding: EdgeInsets.symmetric(horizontal: 15),
-              child :Column(
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return DetailPage();
-                        }));
-                      },
-                      child : _kontenKaryaPopuler('assets/top 1.png','assets/komik 8.jpg', 'Naruto', """The adventure begins now!"""),
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: _listkaryapopuler.length,
+              itemBuilder: ((context, index){
+                final rankImg = _rankingimage[index % _rankingimage.length];
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 35,
+                          width: 35,
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(rankImg),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              height: 90,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                  image: NetworkImage("http://192.168.1.5/app_eliterasi/uploads/${_listkaryapopuler[index]['Cover']}"),
+                                  fit: BoxFit.cover,
+                                )
+                              ),
+                            ),
+                            SizedBox(height: 10,),
+                          ],
+                        ),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _listkaryapopuler[index]['Judul'],
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              _listkaryapopuler[index]['Sinopsis'],
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),    
+                          ],
+                        ),
+                      ],
                     ),
-                  SizedBox(height: 10,),
-                  _kontenKaryaPopuler('assets/top 2.png','assets/komik 10.jpg', 'Bleach', 'Ichigo Kurosaki has able to see ghosts.'),
-                  SizedBox(height: 10,),
-                  _kontenKaryaPopuler('assets/top 3.png','assets/komik 11.jpg', 'Dragon Ball', 'Goku the adventure of a lifetime.'),
-                  SizedBox(height: 10,),
-                  _kontenKaryaPopuler('assets/top 4.png','assets/komik 12.jpg', 'Haikyu!!', '"the King of the Court," Shoyo Hinata.'),
-                  SizedBox(height: 10,),
-                  _kontenKaryaPopuler('assets/top 5.png','assets/komik 9.jpg', 'Kagurabachi', '6 Katana Sihir.'),
-                  SizedBox(height: 10,),
-                    
-                ],
-              ),
-            ),
+                  ],
+                );
+              }),
+            )
           ),
+          
           const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children : [
@@ -452,28 +599,62 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(
             height: 220,
-            child: ListView(
+            child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 22),
+              itemCount: _listkaryakomik.length,
               scrollDirection: Axis.horizontal,
-              children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return DetailPage();
-                      }));
-                    },
-                    child : _kontenKaryaHome('assets/komik 1.jpg', 'One Piece', '4.9'),
-                  ),
-                 SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/komik 2.jpg', 'Jujutsu Kaisen', '4.5'),
-                 SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/komik 3.jpg', 'Hero Academia', '4.3'),
-                 SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/komik 4.jpg', 'dandadan', '4.9'),
-                 SizedBox(width: 10,),
-              ],
-            ),
+              itemBuilder: ((context, index){
+                return Row(
+                  children :[
+                    Column(
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                              image: NetworkImage("http://192.168.1.5/app_eliterasi/uploads/${_listkaryakomik[index]['Cover']}"),
+                              fit: BoxFit.cover,
+                            )
+                          ),
+                        ),
+                        Text(
+                              _listkaryakomik[index]['Judul'],
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 12,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              '5.0',
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(width: 10,),
+                  ]
+                );
+              })
+            )
           ),
+          const SizedBox(
+            height: 15,
+          ),
+          
           SizedBox(
             height: 10,
           ),
@@ -496,159 +677,69 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(
             height: 220,
-            child: ListView(
+            child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 22),
+              itemCount: _listkaryanovel.length,
               scrollDirection: Axis.horizontal,
-              children: [
-                 GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return DetailPage();
-                      }));
-                    },
-                    child : _kontenKaryaHome('assets/novel 1.jpg', 'Sesuap Rasa', '4.8'),
-                  ),
-                 SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/novel 2.jpg', 'Dilan 1990', '4.6'),
-                 SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/novel 3.jpg', 'Berbalas Dendam', '4.4'),
-                 SizedBox(width: 10,),
-                 _kontenKaryaHome('assets/novel 4.jpg', 'Gadis Kretek', '4.3'),
-                 SizedBox(width: 10,),
-              ],
-            ),
+              itemBuilder: ((context, index){
+                return Row(
+                  children :[
+                    Column(
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                              image: NetworkImage("http://192.168.1.5/app_eliterasi/uploads/${_listkaryanovel[index]['Cover']}"),
+                              fit: BoxFit.cover,
+                            )
+                          ),
+                        ),
+                        Text(
+                              _listkaryanovel[index]['Judul'],
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 12,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              '5.0',
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(width: 10,),
+                  ]
+                );
+              })
+            )
           ),
+          const SizedBox(
+            height: 15,
+            ),
         ],  
       ),
     );
   }
 }
 
-Widget _kontenKaryaHome(String imgPath,String namaKarya,String rating){
-  return Column(
-                  children: [
-                    Container(
-                      height: 180,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        image: DecorationImage(
-                          image: AssetImage(imgPath),
-                          fit: BoxFit.cover,
-                        )
-                      ),
-                    ),
-                    Text(
-                          namaKarya,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                      const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 12,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          rating,
-                          style: const TextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ); 
-}
 
-Widget _kontenKaryaKhusus(String imgPath,String namaKarya,String deskripsiKarya){
-  return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 180,
-              width: 360,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                image: DecorationImage(
-                  image: AssetImage(imgPath),
-                  fit: BoxFit.cover,
-                )
-              ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              namaKarya,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Text(
-              deskripsiKarya,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w300,
-              ),
-            ),    
-          ],
-        ); 
-}
 
-Widget _kontenKaryaPopuler(String imgRank,String imgPath,String namaKarya,String deskripsiKarya){
-  return Row(
-          children: [
-            Container(
-              height: 35,
-              width: 35,
-              margin: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(imgRank),
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            Container(
-              height: 90,
-              width: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                image: DecorationImage(
-                  image: AssetImage(imgPath),
-                  fit: BoxFit.cover,
-                )
-              ),
-            ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  namaKarya,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  deskripsiKarya,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),    
-              ],
-
-            ),
-          ],
-        ); 
-}
 
 
   
